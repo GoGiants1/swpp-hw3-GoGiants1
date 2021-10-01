@@ -4,6 +4,11 @@ import './Login.css';
 const refEmail = 'swpp@snu.ac.kr';
 const refPassword = 'iluvswpp';
 
+/* TODO: 
+1. 로그인 서버랑 통신하는 것.
+2. 로그인 후 push /articles
+ */
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

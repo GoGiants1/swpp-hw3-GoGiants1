@@ -4,6 +4,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     name: null,
+    isLoggedIn: false,
   },
   reducers: {
     login: (state, action) => {
@@ -28,5 +29,5 @@ export const { login } = userSlice.actions; //
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const selectUserName = (state) => state.user.name;
-
+export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
 export default userSlice.reducer;
