@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { useDispatch } from 'react-redux';
+import { push } from 'connected-react-router';
+import { login } from './userSlice';
 
 const refEmail = 'swpp@snu.ac.kr';
 const refPassword = 'iluvswpp';
@@ -10,11 +13,14 @@ const refPassword = 'iluvswpp';
  */
 
 function Login() {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleSubmit = () => {
     if (email === refEmail && password === refPassword) {
-      alert('ok');
+      dispatch(login({ email, password }));
+      dispatch(push('/articles'));
     } else {
       alert('Email or password is wrong');
     }

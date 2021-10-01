@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+// import { Redirect } from 'react-router';
+import { push } from 'connected-react-router';
 import { selectIsLoggedIn } from '../features/user/userSlice';
 
 export default (Component, option /* { admin = null} */) => {
@@ -12,12 +13,15 @@ export default (Component, option /* { admin = null} */) => {
 
   const Auth = (props) => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
-
+    const dispatch = useDispatch();
     useEffect(() => {
       // 로그인 안한 사람.
+      console.log(isLoggedIn);
       console.log(props);
+
       if (!isLoggedIn && option) {
-        <Redirect to="/login" />;
+        // <Redirect to="/login" />;
+        dispatch(push('/login'));
       }
     }, []);
     return <Component />;
