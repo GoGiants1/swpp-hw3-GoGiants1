@@ -1,5 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
+import createRootReducer from './reducers';
+
+export const history = createBrowserHistory();
+const rootReducer = createRootReducer(history);
 
 const logger = (store) => (next) => (action) => {
   // eslint-disable-next-line
@@ -13,10 +19,10 @@ const logger = (store) => (next) => (action) => {
 export default function configureAppStore(preloadedState) {
   const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(logger, routerMiddleware(history)),
     preloadedState,
   });
-
   if (process.env.NODE_ENV !== 'production' && module.hot) {
     module.hot.accept('./reducers', () => store.replaceReducer(rootReducer));
   }
