@@ -7,6 +7,7 @@
         "@ant-design/icons": "4.0.0",
         "@reduxjs/toolkit": "^1.6.1",
         "antd": "^4.16.13",
+        "axios": "^0.22.0",
         "connected-react-router": "^6.9.1",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.6",
@@ -30,7 +31,10 @@
         "backend": "cp api/db.json api/_db.json && json-server --watch api/_db.json --routes api/routes.json --port 8000"
     },
     "eslintConfig": {
-        "extends": ["react-app", "airbnb"]
+        "extends": [
+            "react-app",
+            "airbnb"
+        ]
     },
     "browserslist": {
         "production": [
