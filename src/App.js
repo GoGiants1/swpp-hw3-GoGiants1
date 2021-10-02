@@ -10,11 +10,10 @@ function App({ history }) {
   return (
     <div className="App">
       <Switch>
-        <Route path="/" exact component={Auth(Login, true)} />
-        <Route path="/login" exact component={Auth(Login, false)} />
         <Route path="/articles" exact component={Auth(Articles, true)} />
+        <Route path="/login" exact component={Auth(Login, false)} />
+        <Route path="/" exact component={Auth(Articles, true)} />
       </Switch>
-      <Login />
     </div>
   );
 }
