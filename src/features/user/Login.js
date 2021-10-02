@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
-import { useDispatch } from 'react-redux';
-import { push } from 'connected-react-router';
-import { login } from './userSlice';
-
-const refEmail = 'swpp@snu.ac.kr';
-const refPassword = 'iluvswpp';
+import { useDispatch, useSelector } from 'react-redux';
+// import { push } from 'connected-react-router';
+import { getUser, getUsers, putUser, selectUsers } from './userSlice';
 
 /* TODO: 
 1. 로그인 서버랑 통신하는 것.
@@ -15,12 +12,29 @@ const refPassword = 'iluvswpp';
 function Login() {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+
+  const users = useSelector(selectUsers);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const matchUserInfo = (e, p) => {
+    for (let i = 0; i < users.length; i += 1) {
+      if (users[i].email === e && users[i].password === p) {
+        dispatch(getUser(users[i].id));
+        return users[i];
+      }
+    }
+    return false;
+  };
+
   const handleSubmit = () => {
-    if (email === refEmail && password === refPassword) {
-      dispatch(login({ email, password }));
-      dispatch(push('/articles'));
+    const userInfo = matchUserInfo(email, password);
+    if (userInfo) {
+      const newUser = { ...userInfo, logged_in: true };
+      dispatch(putUser(newUser));
     } else {
       alert('Email or password is wrong');
     }
@@ -29,6 +43,7 @@ function Login() {
   const handleEmailChange = (txt) => {
     setEmail(txt);
   };
+
   const handlePasswordChange = (txt) => {
     setPassword(txt);
   };
@@ -51,7 +66,7 @@ function Login() {
         value={password}
         onChange={(e) => handlePasswordChange(e.target.value)}
       />
-      <button type="button" id="login-button" onClick={() => handleSubmit()}>
+      <button type="submit" id="login-button" onClick={() => handleSubmit()}>
         로그인
       </button>
     </div>
