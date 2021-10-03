@@ -9,7 +9,7 @@ export default (Component, option /* { admin = null} */) => {
 
   const Auth = (props) => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
-    const { location, history } = props;
+    const { location, history, match } = props;
     const { pathname } = location;
     useEffect(() => {
       // 로그인 안한 사람.
@@ -19,7 +19,7 @@ export default (Component, option /* { admin = null} */) => {
         history.push('/articles');
       }
     }, []);
-    return <Component />;
+    return <Component history={history} location={location} match={match} />;
   };
 
   return Auth;

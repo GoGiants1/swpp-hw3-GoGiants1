@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { push } from 'connected-react-router';
 import Article from './Article';
 import { getArticles, selectArticles } from './articlesSlice';
 import { selectIsLoggedIn, selectUsers } from '../user/userSlice';
 // 아티클 객체:
-function Articles() {
+function Articles(props) {
+  console.log('articles', props);
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const articles = useSelector(selectArticles);
@@ -18,6 +20,10 @@ function Articles() {
       if (users[i].id === id) return users[i].name;
     }
     return null;
+  };
+
+  const handleCreate = () => {
+    dispatch(push('/articles/create'));
   };
   return (
     <div>
@@ -36,7 +42,11 @@ function Articles() {
             />
           );
         })}
-      <button id="create-article-button" type="button">
+      <button
+        id="create-article-button"
+        type="button"
+        onClick={() => handleCreate()}
+      >
         Create
       </button>
     </div>

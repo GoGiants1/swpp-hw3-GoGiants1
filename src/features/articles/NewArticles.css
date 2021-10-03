@@ -1,0 +1,20 @@
+.selected {
+  border: none;
+  background-color: azure;
+}
+
+.WrapperNew {
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+}
+
+.WriteTab {
+  display: flex;
+  flex-direction: column;
+}
+
+.PreviewTab {
+  display: flex;
+  flex-direction: column;
+}
