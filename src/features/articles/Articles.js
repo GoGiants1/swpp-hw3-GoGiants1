@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
 import Article from './Article';
 import { getArticles, selectArticles } from './articlesSlice';
 import { selectIsLoggedIn, selectUsers } from '../user/userSlice';
 // 아티클 객체:
-function Articles(props) {
-  console.log('articles', props);
+function Articles({ history }) {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const articles = useSelector(selectArticles);
@@ -23,7 +21,7 @@ function Articles(props) {
   };
 
   const handleCreate = () => {
-    dispatch(push('/articles/create'));
+    history.push('/articles/create');
   };
   return (
     <div>
@@ -34,6 +32,7 @@ function Articles(props) {
           const name = findUserNameByID(a.author_id);
           return (
             <Article
+              history={history}
               key={`article_${id}`}
               id={id}
               authorName={name}

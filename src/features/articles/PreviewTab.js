@@ -25,7 +25,11 @@ function PreviewTab({
         <button type="button" onClick={() => handleClickBack()}>
           back
         </button>
-        <button type="button" onClick={() => handlePost()}>
+        <button
+          type="button"
+          disabled={!title || !content}
+          onClick={() => handlePost()}
+        >
           confirm
         </button>
       </>

@@ -8,7 +8,7 @@ import { selectUsers } from '../user/userSlice';
 // 댓글 컨펌, 댓글 수정, 댓글 삭제
 // 글 수정, 글 삭제, 뒤로가기 버튼
 
-function ArticleDetail({ match }) {
+function ArticleDetail({ history, match }) {
   const articleID = match.params.id;
   const users = useSelector(selectUsers);
   const [loading, setLoading] = useState(true);
@@ -22,6 +22,9 @@ function ArticleDetail({ match }) {
       if (users[i].id === id) return users[i].name;
     }
     return null;
+  };
+  const handleBack = () => {
+    history.push(`/articles`);
   };
 
   useEffect(() => {
@@ -41,19 +44,29 @@ function ArticleDetail({ match }) {
       fetchArticle();
       setLoading(false);
     }
+    return () => setLoading(true);
   }, []);
 
   return (
     <div>
-      {loading ? (
-        <p>loading...</p>
-      ) : (
-        <>
-          <h2>{title}</h2>
-          <p>{authorName}</p>
-          <p>{content}</p>
-        </>
-      )}
+      <div>
+        <h2>{title}</h2>
+        <p>{authorName}</p>
+        <p>{content}</p>
+      </div>
+      <textarea name="commentInput" placeholder="Comment" />
+      <div className="CommentButtons">
+        <button type="button">post comment</button>
+        <button type="button">edit comment</button>
+        <button type="button">delete</button>
+      </div>
+      <div className="ArticleButtons">
+        <button type="button">edit article</button>
+        <button type="button">delete article</button>
+        <button type="button" onClick={() => handleBack()}>
+          back
+        </button>
+      </div>
     </div>
   );
 }

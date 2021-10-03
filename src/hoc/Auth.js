@@ -9,14 +9,14 @@ export default (Component, option /* { admin = null} */) => {
 
   const Auth = (props) => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
-    const { location, history, match } = props;
+    const { history, location, match } = props;
     const { pathname } = location;
     useEffect(() => {
       // 로그인 안한 사람.
       if (!isLoggedIn && (pathname === '/' || option)) {
-        history.push('/login');
+        history.replace('/login');
       } else if (isLoggedIn && pathname === '/') {
-        history.push('/articles');
+        history.replace('/articles');
       }
     }, []);
     return <Component history={history} location={location} match={match} />;

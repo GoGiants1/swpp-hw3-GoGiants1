@@ -18,12 +18,32 @@ export const articlesSlice = createSlice({
     postArticle_: (state, action) => {
       state.articles.push(action.payload);
     },
+    putArticle_: (state, action) => {
+      state.articles.map((article) => {
+        if (article.id === action.payload.id) {
+          return action.payload;
+        }
+        return article;
+      });
+      state.selectedArticle = action.payload;
+    },
+    deleteArticle_: (state, action) => {
+      state.articles = state.articles.filter(
+        (article) => article.id !== action.payload,
+      );
+      state.selectedArticle = null;
+    },
   },
 });
 
 // action creators
-export const { getArticle_, getArticles_, postArticle_ } =
-  articlesSlice.actions;
+export const {
+  getArticle_,
+  getArticles_,
+  postArticle_,
+  putArticle_,
+  deleteArticle_,
+} = articlesSlice.actions;
 
 // thunk logics
 export const getArticle = (id, authorName) => async (dispatch) => {
@@ -53,6 +73,23 @@ export const postArticle = (ar) => async (dispatch) => {
     console.error(err);
   }
 };
+export const putArticle = (ar) => async (dispatch) => {
+  try {
+    await axios.put(`/api/articles/${ar.id}`, ar);
+    dispatch(putArticle_(ar));
+  } catch (e) {
+    console.error(e);
+  }
+};
+export const deleteArticle = (id) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/articles/${id}`);
+    dispatch(deleteArticle_(id));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const selectArticles = (state) => state.articles.articles;
 export const selectSelectedArticle = (state) => state.articles.selectedArticle;
 

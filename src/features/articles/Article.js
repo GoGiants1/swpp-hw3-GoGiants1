@@ -1,14 +1,13 @@
 import React from 'react';
 import './Article.css';
 import { useDispatch } from 'react-redux';
-import { push } from 'connected-react-router';
 import { getArticle } from './articlesSlice';
 
-function Article({ id, authorName, title }) {
+function Article({ history, id, authorName, title }) {
   const dispatch = useDispatch();
   const handleClick = async () => {
     await dispatch(getArticle(id, authorName));
-    dispatch(push(`/articles/${id}`));
+    history.push(`/articles/${id}`);
   };
   return (
     <div className="article">

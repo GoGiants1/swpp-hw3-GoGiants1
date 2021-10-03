@@ -1,18 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { push } from 'connected-react-router';
+import { replace, push } from 'connected-react-router';
+
+const defaultThisUser = {
+  id: null,
+  email: '',
+  password: '',
+  name: '',
+  logged_in: false,
+};
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    thisUser: {
-      id: null,
-      email: '',
-      password: '',
-      name: '',
-      logged_in: false,
-    },
+    thisUser: defaultThisUser,
     users: null,
     tmpUser: null,
   },
@@ -20,9 +22,9 @@ export const userSlice = createSlice({
     login: (state, action) => {
       state.thisUser = action.payload;
     },
-    logout: (state) => {
-      state.thisUser = null;
-      state.thisUser.loggedIn = false;
+    logout_: (state) => {
+      state.thisUser = defaultThisUser;
+      state.tmpUser = null;
     },
     getUsers_: (state, action) => {
       state.users = action.payload;
@@ -31,12 +33,13 @@ export const userSlice = createSlice({
       state.tmpUser = action.payload;
     },
     putUser_: (state, action) => {
-      state.tmpUser = action.payload;
+      state.thisUser.logged_in = action.payload;
     },
   },
 });
 
-export const { login, logout, getUsers_, getUser_ } = userSlice.actions; //
+export const { login, logout_, getUsers_, getUser_, putUser_ } =
+  userSlice.actions; //
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -50,21 +53,27 @@ export const { login, logout, getUsers_, getUser_ } = userSlice.actions; //
 
 export const getUsers = () => async (dispatch) => {
   const res = await axios.get('/api/user');
+  console.log('getUsers', res.data);
   dispatch(getUsers_(res.data));
 };
 
 export const getUser = (id) => async (dispatch) => {
   const res = await axios.get(`/api/user/${id}`);
+  console.log('getUser', res.data);
   dispatch(getUser_(res.data));
 };
 
 export const putUser = (user) => async (dispatch) => {
-  if (!user.logged_in) {
-    const res = await axios.put(`/api/user/${user.id}`, user);
+  const res = await axios.put(`/api/user/${user.id}`, user);
+  if (user.logged_in) {
+    await dispatch(login(user));
+    dispatch(replace('/articles'));
+  } else {
+    await dispatch(logout_());
+    dispatch(push('/login'));
   }
-  await dispatch(login(user));
-  dispatch(push('/articles'));
 };
+
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`

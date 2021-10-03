@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { push } from 'connected-react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Preview from './PreviewTab';
 import Write from './WriteTab';
@@ -7,7 +6,7 @@ import './NewArticles.css';
 import { postArticle } from './articlesSlice';
 import { selectThisUser } from '../user/userSlice';
 // preview tab, writetab 2개로 이루어짐
-function NewArticle() {
+function NewArticle({ history }) {
   const author = useSelector(selectThisUser);
   const [isPreview, setIsPreview] = useState(false);
   const [title, setTitle] = useState('');
@@ -15,7 +14,7 @@ function NewArticle() {
   const dispatch = useDispatch();
 
   const handleClickBack = () => {
-    dispatch(push('/articles'));
+    history.push('/articles');
   };
 
   const handlePost = () => {
