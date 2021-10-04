@@ -77,6 +77,7 @@ export const putArticle = (ar) => async (dispatch) => {
   try {
     await axios.put(`/api/articles/${ar.id}`, ar);
     dispatch(putArticle_(ar));
+    dispatch(replace(`/articles/${ar.id}`));
   } catch (e) {
     console.error(e);
   }
@@ -85,6 +86,7 @@ export const deleteArticle = (id) => async (dispatch) => {
   try {
     await axios.delete(`/api/articles/${id}`);
     dispatch(deleteArticle_(id));
+    dispatch(replace('/articles'));
   } catch (e) {
     console.error(e);
   }

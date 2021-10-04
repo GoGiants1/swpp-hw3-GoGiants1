@@ -1,13 +1,13 @@
 import React from 'react';
 import './NewArticles.css';
 
-function WriteTab({
+function EditWrite({
   setIsPreview,
   title,
   content,
   setTitle,
   setContent,
-  handlePost,
+  handleEdit,
   handleClickBack,
 }) {
   return (
@@ -42,17 +42,17 @@ function WriteTab({
       </>
       <>
         <button
-          id="back-create-article-button"
+          id="back-edit-article-button"
           type="button"
           onClick={() => handleClickBack()}
         >
           back
         </button>
         <button
-          id="confirm-create-article-button"
+          id="confirm-edit-article-button"
           type="button"
           disabled={!title || !content}
-          onClick={() => handlePost()}
+          onClick={() => handleEdit()}
         >
           confirm
         </button>
@@ -61,4 +61,4 @@ function WriteTab({
   );
 }
 
-export default WriteTab;
+export default EditWrite;

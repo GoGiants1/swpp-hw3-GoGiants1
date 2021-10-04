@@ -1,18 +1,22 @@
 /* eslint-disable react/destructuring-assignment */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUsers } from '../user/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUsers, selectThisUser } from '../user/userSlice';
+import Comments from '../comments/Comments';
+import { deleteArticle } from './articlesSlice';
 // comment 리덕스
 // 버튼 6개
 // 댓글 컨펌, 댓글 수정, 댓글 삭제
 // 글 수정, 글 삭제, 뒤로가기 버튼
 
 function ArticleDetail({ history, match }) {
-  const articleID = match.params.id;
+  const dispatch = useDispatch();
+  const articleID = Number(match.params.id);
   const users = useSelector(selectUsers);
+  const thisUser = useSelector(selectThisUser);
   const [loading, setLoading] = useState(true);
-
+  const [isAuthor, setIsAuthor] = useState(false);
   const [authorName, setAuthorName] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -23,9 +27,6 @@ function ArticleDetail({ history, match }) {
     }
     return null;
   };
-  const handleBack = () => {
-    history.push(`/articles`);
-  };
 
   useEffect(() => {
     async function fetchArticle() {
@@ -35,6 +36,7 @@ function ArticleDetail({ history, match }) {
         setAuthorName(author);
         setTitle(res.data.title);
         setContent(res.data.content);
+        if (thisUser.id === res.data.author_id) setIsAuthor(true);
       } catch (e) {
         console.error(e);
       }
@@ -47,26 +49,55 @@ function ArticleDetail({ history, match }) {
     return () => setLoading(true);
   }, []);
 
+  const handleBack = () => {
+    history.push(`/articles`);
+  };
+
+  const handleArticleEdit = () => {
+    history.push(`/articles/${articleID}/edit`);
+  };
+
+  const handleArticleDelete = () => {
+    dispatch(deleteArticle(articleID));
+  };
+
   return (
     <div>
       <div>
-        <h2>{title}</h2>
-        <p>{authorName}</p>
-        <p>{content}</p>
+        <h2 id="article-title">{title}</h2>
+        <p id="article-author">{authorName}</p>
+        <p id="article-content">{content}</p>
       </div>
-      <textarea name="commentInput" placeholder="Comment" />
-      <div className="CommentButtons">
-        <button type="button">post comment</button>
-        <button type="button">edit comment</button>
-        <button type="button">delete</button>
-      </div>
-      <div className="ArticleButtons">
-        <button type="button">edit article</button>
-        <button type="button">delete article</button>
-        <button type="button" onClick={() => handleBack()}>
-          back
-        </button>
-      </div>
+      <Comments
+        findUserNameByID={findUserNameByID}
+        thisArticleID={articleID}
+        thisUserID={thisUser.id}
+      />
+      {isAuthor ? (
+        <div className="ArticleButtons">
+          <button
+            id="edit-article-button"
+            type="button"
+            onClick={() => handleArticleEdit()}
+          >
+            edit article
+          </button>
+          <button
+            id="delete-article-button"
+            type="button"
+            onClick={() => handleArticleDelete()}
+          >
+            delete article
+          </button>
+        </div>
+      ) : null}
+      <button
+        id="back-detail-article-button"
+        type="button"
+        onClick={() => handleBack()}
+      >
+        back
+      </button>
     </div>
   );
 }

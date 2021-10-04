@@ -31,6 +31,7 @@ function NewArticle({ history }) {
       {isPreview ? (
         <Preview
           isPreview={isPreview}
+          authorName={author.name}
           setIsPreview={setIsPreview}
           title={title}
           content={content}

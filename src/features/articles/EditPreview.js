@@ -1,11 +1,11 @@
 import React from 'react';
 import './NewArticles.css';
 
-function PreviewTab({
+function EditPreview({
   setIsPreview,
   title,
   content,
-  handlePost,
+  handleEdit,
   handleClickBack,
   authorName,
 }) {
@@ -30,17 +30,17 @@ function PreviewTab({
       </>
       <>
         <button
-          id="back-create-article-button"
+          id="back-edit-article-button"
           type="button"
           onClick={() => handleClickBack()}
         >
           back
         </button>
         <button
-          id="confirm-create-article-button"
+          id="confirm-edit-article-button"
           type="button"
           disabled={!title || !content}
-          onClick={() => handlePost()}
+          onClick={() => handleEdit()}
         >
           confirm
         </button>
@@ -49,4 +49,4 @@ function PreviewTab({
   );
 }
 
-export default PreviewTab;
+export default EditPreview;

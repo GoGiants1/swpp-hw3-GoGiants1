@@ -8,6 +8,7 @@ import Articles from './features/articles/Articles';
 import NewArticle from './features/articles/NewArticle';
 import ArticleDetail from './features/articles/ArticleDetail';
 import { selectThisUser, putUser } from './features/user/userSlice';
+import ArticleEdit from './features/articles/ArticleEdit';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,19 +19,24 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/articles" exact component={Auth(Articles, true)} />
-        <Route path="/login" exact component={Auth(Login, false)} />
-        <Route path="/" exact component={Auth(Articles, true)} />
         <Route
           path="/articles/create"
           exact
           component={Auth(NewArticle, true)}
         />
         <Route
+          path="/articles/:id/edit"
+          exact
+          component={Auth(ArticleEdit, true)}
+        />
+        <Route
           path="/articles/:id"
           exact
           component={Auth(ArticleDetail, true)}
         />
+        <Route path="/articles" exact component={Auth(Articles, true)} />
+        <Route path="/login" exact component={Auth(Login, false)} />
+        <Route path="/" exact component={Auth(Articles, true)} />
       </Switch>
       {thisUser ? (
         <button type="button" onClick={() => handleLogout()}>
