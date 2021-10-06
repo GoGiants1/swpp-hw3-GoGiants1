@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUsers, selectThisUser } from '../user/userSlice';
 import Comments from '../comments/Comments';
-import { deleteArticle } from './articlesSlice';
+import { deleteArticle, getArticle } from './articlesSlice';
 // comment 리덕스
 // 버튼 6개
 // 댓글 컨펌, 댓글 수정, 댓글 삭제
@@ -53,7 +53,8 @@ function ArticleDetail({ history, match }) {
     history.push(`/articles`);
   };
 
-  const handleArticleEdit = () => {
+  const handleArticleEdit = async () => {
+    await dispatch(getArticle(articleID, authorName));
     history.push(`/articles/${articleID}/edit`);
   };
 

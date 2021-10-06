@@ -40,6 +40,7 @@ function App() {
           <Route path="/articles" exact component={Auth(Articles, true)} />
           <Route path="/login" exact component={Auth(Login, false)} />
           <Route path="/" exact component={Auth(Articles, true)} />
+          <Route render={() => <h1>404 Not Found</h1>} />
         </Switch>
         {thisUser.logged_in ? (
           <button

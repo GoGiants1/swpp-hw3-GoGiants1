@@ -1,12 +1,8 @@
 import React from 'react';
 import './Article.css';
-import { useDispatch } from 'react-redux';
-import { getArticle } from './articlesSlice';
 
 function Article({ history, id, authorName, title }) {
-  const dispatch = useDispatch();
-  const handleClick = async () => {
-    await dispatch(getArticle(id, authorName));
+  const handleClick = () => {
     history.push(`/articles/${id}`);
   };
   return (

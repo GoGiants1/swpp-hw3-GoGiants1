@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditPreview from './EditPreview';
 import EditWrite from './EditWrite';
 import './NewArticles.css';
-import { putArticle, getArticle, selectSelectedArticle } from './articlesSlice';
+import { putArticle, selectSelectedArticle } from './articlesSlice';
 import { selectThisUser } from '../user/userSlice';
 
 function ArticleEdit({ history, match }) {
+  const dispatch = useDispatch();
   const articleID = Number(match.params.id);
   const author = useSelector(selectThisUser);
   const article = useSelector(selectSelectedArticle);
   const [isPreview, setIsPreview] = useState(false);
   const [title, setTitle] = useState(article.title);
   const [content, setContent] = useState(article.content);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getArticle(articleID));
-  }, []);
 
   const handleClickBack = () => {
     if (article.title === title && article.content === content) {

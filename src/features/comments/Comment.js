@@ -53,7 +53,7 @@ function Comment({
               type="button"
               onClick={() => handleDelete()}
             >
-              delete
+              delete comment
             </button>
           </>
         ) : null}
