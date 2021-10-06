@@ -53,13 +53,11 @@ export const { login, logout_, getUsers_, getUser_, putUser_ } =
 
 export const getUsers = () => async (dispatch) => {
   const res = await axios.get('/api/user');
-  console.log('getUsers', res.data);
   dispatch(getUsers_(res.data));
 };
 
 export const getUser = (id) => async (dispatch) => {
   const res = await axios.get(`/api/user/${id}`);
-  console.log('getUser', res.data);
   dispatch(getUser_(res.data));
 };
 

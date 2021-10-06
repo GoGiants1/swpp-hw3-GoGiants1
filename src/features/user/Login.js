@@ -11,12 +11,12 @@ import { getUser, getUsers, putUser, selectUsers } from './userSlice';
 
 function Login() {
   const dispatch = useDispatch();
+  const users = useSelector(selectUsers);
 
   useEffect(() => {
     dispatch(getUsers());
   }, []);
 
-  const users = useSelector(selectUsers);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

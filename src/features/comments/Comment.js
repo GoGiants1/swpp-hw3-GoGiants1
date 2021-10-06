@@ -15,7 +15,7 @@ function Comment({
   const [commentContent, setCommentContent] = useState(content);
   const handleEdit = () => {
     const result = window.prompt('Edit Comment', commentContent);
-    if (result) {
+    if (result && result !== content) {
       setCommentContent(result);
       dispatch(
         putComment({

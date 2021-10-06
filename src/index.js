@@ -2,22 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import configureAppStore, { history } from './app/store';
+import configureAppStore from './app/store';
 
 const store = configureAppStore();
 const renderApp = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <App history={history} />
-      </ConnectedRouter>
+      <App />
     </Provider>,
     document.getElementById('root'),
   );
 
+  // hot reload
   if (process.env.NODE_ENV !== 'production' && module.hot) {
     module.hot.accept('./App', renderApp);
   }

@@ -13,7 +13,6 @@ function Comments({ findUserNameByID, thisArticleID, thisUserID }) {
   const comments = useSelector(selectCommentsInArticle);
   useEffect(() => {
     dispatch(getComments(thisArticleID));
-    console.log(comments);
   }, []);
   const handlePostComment = () => {
     if (newContent) {

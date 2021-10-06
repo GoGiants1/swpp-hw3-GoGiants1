@@ -64,7 +64,7 @@ function ArticleDetail({ history, match }) {
   return (
     <div>
       <div>
-        <h2 id="article-title">{title}</h2>
+        <h1 id="article-title">{title}</h1>
         <p id="article-author">{authorName}</p>
         <p id="article-content">{content}</p>
       </div>

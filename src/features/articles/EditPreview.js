@@ -24,7 +24,7 @@ function EditPreview({
         </button>
       </>
       <>
-        <h2 id="article-title">{title}</h2>
+        <h1 id="article-title">{title}</h1>
         <h3 id="article-author">{authorName}</h3>
         <p id="article-content">{content}</p>
       </>
