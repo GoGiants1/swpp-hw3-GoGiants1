@@ -4,7 +4,7 @@ import axios from 'axios';
 const commentsSlice = createSlice({
   name: 'comments',
   initialState: {
-    comments: null,
+    comments: [],
     commentsInArticle: null,
   },
   reducers: {

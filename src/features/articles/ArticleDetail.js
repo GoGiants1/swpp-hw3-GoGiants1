@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUsers, selectThisUser } from '../user/userSlice';
+import { selectUsers, selectThisUser, putUser } from '../user/userSlice';
 import Comments from '../comments/Comments';
 import { deleteArticle, getArticle } from './articlesSlice';
 // comment 리덕스
@@ -54,12 +54,20 @@ function ArticleDetail({ history, match }) {
   };
 
   const handleArticleEdit = async () => {
-    await dispatch(getArticle(articleID, authorName));
-    history.push(`/articles/${articleID}/edit`);
+    try {
+      await dispatch(getArticle(articleID, authorName));
+      history.push(`/articles/${articleID}/edit`);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleArticleDelete = () => {
     dispatch(deleteArticle(articleID));
+  };
+
+  const handleLogout = (user) => {
+    dispatch(putUser({ ...user, logged_in: false }));
   };
 
   return (
@@ -98,6 +106,13 @@ function ArticleDetail({ history, match }) {
         onClick={() => handleBack()}
       >
         back
+      </button>
+      <button
+        id="logout-button"
+        type="button"
+        onClick={() => handleLogout(thisUser)}
+      >
+        logout
       </button>
     </div>
   );

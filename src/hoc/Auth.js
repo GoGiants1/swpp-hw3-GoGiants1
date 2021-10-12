@@ -15,7 +15,7 @@ export default (Component, option /* { admin = null} */) => {
       // 로그인 안한 사람.
       if (!isLoggedIn && (pathname === '/' || option)) {
         history.replace('/login');
-      } else if (isLoggedIn && pathname === '/') {
+      } else if (isLoggedIn && (pathname === '/' || pathname === '/login')) {
         history.replace('/articles');
       }
     }, []);

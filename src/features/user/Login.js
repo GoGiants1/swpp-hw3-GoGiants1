@@ -4,11 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { push } from 'connected-react-router';
 import { getUser, getUsers, putUser, selectUsers } from './userSlice';
 
-/* TODO: 
-1. 로그인 서버랑 통신하는 것.
-2. 로그인 후 push /articles
- */
-
 function Login() {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
@@ -49,7 +44,7 @@ function Login() {
   };
 
   return (
-    <div className="login">
+    <div className="Login">
       <input
         name="email"
         id="email-input"

@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Article from './Article';
 import { getArticles, selectArticles } from './articlesSlice';
-import { selectIsLoggedIn, selectUsers } from '../user/userSlice';
+import { selectThisUser, selectUsers, putUser } from '../user/userSlice';
 // 아티클 객체:
 function Articles({ history }) {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const thisUser = useSelector(selectThisUser);
   const articles = useSelector(selectArticles);
   const users = useSelector(selectUsers);
   useEffect(() => {
-    if (isLoggedIn) dispatch(getArticles());
+    if (thisUser) dispatch(getArticles());
   }, []);
 
   const findUserNameByID = (id) => {
@@ -23,8 +23,13 @@ function Articles({ history }) {
   const handleCreate = () => {
     history.push('/articles/create');
   };
+
+  const handleLogout = (user) => {
+    dispatch(putUser({ ...user, logged_in: false }));
+  };
+
   return (
-    <div>
+    <div className="Articles">
       {articles &&
         users &&
         articles.map((a) => {
@@ -47,6 +52,13 @@ function Articles({ history }) {
         onClick={() => handleCreate()}
       >
         Create
+      </button>
+      <button
+        id="logout-button"
+        type="button"
+        onClick={() => handleLogout(thisUser)}
+      >
+        logout
       </button>
     </div>
   );

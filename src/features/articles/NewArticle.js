@@ -4,7 +4,7 @@ import Preview from './PreviewTab';
 import Write from './WriteTab';
 import './NewArticles.css';
 import { postArticle } from './articlesSlice';
-import { selectThisUser } from '../user/userSlice';
+import { selectThisUser, putUser } from '../user/userSlice';
 // preview tab, writetab 2개로 이루어짐
 function NewArticle({ history }) {
   const author = useSelector(selectThisUser);
@@ -24,6 +24,10 @@ function NewArticle({ history }) {
       content,
     };
     dispatch(postArticle(newArticle));
+  };
+
+  const handleLogout = (user) => {
+    dispatch(putUser({ ...user, logged_in: false }));
   };
 
   return (
@@ -49,6 +53,14 @@ function NewArticle({ history }) {
           handleClickBack={handleClickBack}
         />
       )}
+
+      <button
+        id="logout-button"
+        type="button"
+        onClick={() => handleLogout(author)}
+      >
+        logout
+      </button>
     </div>
   );
 }

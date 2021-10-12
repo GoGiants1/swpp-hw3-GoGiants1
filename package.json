@@ -9,8 +9,6 @@
         "antd": "^4.16.13",
         "axios": "^0.22.0",
         "connected-react-router": "^6.9.1",
-        "enzyme": "^3.11.0",
-        "enzyme-adapter-react-16": "^1.15.6",
         "json-server": "^0.16.3",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
@@ -49,15 +47,21 @@
         ]
     },
     "devDependencies": {
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-17-updated": "^1.0.2",
+        "enzyme-to-json": "^3.6.2",
         "eslint": "^7.32.0",
         "eslint-config-airbnb": "^18.2.1",
         "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-react": "^7.21.5"
+        "eslint-plugin-react": "^7.21.5",
+        "jest-react-hooks-shallow": "^1.5.1"
     },
     "jest": {
-     "collectCoverageFrom" : [
-       "src/**/*.{js,jsx}" ,
-       "!src/index.js" ,
-       "!src/serviceWorker.js"
-    ] }
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx}",
+            "!src/index.js",
+            "!src/serviceWorker.js"
+        ],
+        "resetMocks": false
+    }
 }

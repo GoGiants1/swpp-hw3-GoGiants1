@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     thisUser: defaultThisUser,
-    users: null,
+    users: [],
     tmpUser: null,
   },
   reducers: {
@@ -39,7 +39,7 @@ export const userSlice = createSlice({
 });
 
 export const { login, logout_, getUsers_, getUser_, putUser_ } =
-  userSlice.actions; //
+  userSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -52,23 +52,35 @@ export const { login, logout_, getUsers_, getUser_, putUser_ } =
 // };
 
 export const getUsers = () => async (dispatch) => {
-  const res = await axios.get('/api/user');
-  dispatch(getUsers_(res.data));
+  try {
+    const res = await axios.get('/api/user');
+    dispatch(getUsers_(res.data));
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const getUser = (id) => async (dispatch) => {
-  const res = await axios.get(`/api/user/${id}`);
-  dispatch(getUser_(res.data));
+  try {
+    const res = await axios.get(`/api/user/${id}`);
+    dispatch(getUser_(res.data));
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const putUser = (user) => async (dispatch) => {
-  const res = await axios.put(`/api/user/${user.id}`, user);
-  if (user.logged_in) {
-    await dispatch(login(user));
-    dispatch(replace('/articles'));
-  } else {
-    await dispatch(logout_());
-    dispatch(push('/login'));
+  try {
+    const res = await axios.put(`/api/user/${user.id}`, user);
+    if (user.logged_in) {
+      await dispatch(login(user));
+      dispatch(replace('/articles'));
+    } else {
+      await dispatch(logout_());
+      dispatch(push('/login'));
+    }
+  } catch (e) {
+    console.error(e);
   }
 };
 

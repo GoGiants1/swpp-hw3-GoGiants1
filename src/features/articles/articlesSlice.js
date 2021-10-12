@@ -5,7 +5,7 @@ import { replace } from 'connected-react-router';
 export const articlesSlice = createSlice({
   name: 'articles',
   initialState: {
-    articles: null,
+    articles: [],
     selectedArticle: null,
   },
   reducers: {

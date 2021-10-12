@@ -4,7 +4,7 @@ import EditPreview from './EditPreview';
 import EditWrite from './EditWrite';
 import './NewArticles.css';
 import { putArticle, selectSelectedArticle } from './articlesSlice';
-import { selectThisUser } from '../user/userSlice';
+import { selectThisUser, putUser } from '../user/userSlice';
 
 function ArticleEdit({ history, match }) {
   const dispatch = useDispatch();
@@ -34,6 +34,9 @@ function ArticleEdit({ history, match }) {
     };
     dispatch(putArticle(newArticle));
   };
+  const handleLogout = (user) => {
+    dispatch(putUser({ ...user, logged_in: false }));
+  };
 
   return (
     <div className="WrapperEdit">
@@ -58,6 +61,13 @@ function ArticleEdit({ history, match }) {
           handleClickBack={handleClickBack}
         />
       )}
+      <button
+        id="logout-button"
+        type="button"
+        onClick={() => handleLogout(author)}
+      >
+        logout
+      </button>
     </div>
   );
 }
