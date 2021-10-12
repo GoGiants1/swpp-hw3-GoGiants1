@@ -38,13 +38,13 @@ describe('<App />', () => {
   let app;
   let spyAxios;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     app = (
       <redux.Provider store={mockStore}>
         <App history={history} />
       </redux.Provider>
     );
-    spyAxios = jest.spyOn(axios, 'get').mockImplementation(
+    axios.get = jest.fn(
       (url) =>
         new Promise((resolve, reject) => {
           const result = {
@@ -54,6 +54,7 @@ describe('<App />', () => {
           resolve(result);
         }),
     );
+    console.err = jest.fn();
   });
   afterEach(() => {
     jest.clearAllMocks();

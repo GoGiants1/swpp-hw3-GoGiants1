@@ -39,7 +39,7 @@ describe('Login', () => {
   let login;
   let spyAxios;
   let spyUseSelector;
-  beforeEach(() => {
+  beforeEach(async () => {
     login = (
       <redux.Provider store={mockStore}>
         <ConnectedRouter history={history}>
@@ -74,7 +74,7 @@ describe('Login', () => {
     expect(component.find('#login-button').length).toBe(1);
   });
 
-  it('should login email input change properly', () => {
+  it('should login email input change properly', async () => {
     const mockedEvent = {
       preventDefault() {},
       target: { value: 'iluvswpp' },
@@ -85,7 +85,7 @@ describe('Login', () => {
     input.simulate('change', mockedEvent);
   });
 
-  it('should login pw input change properly', () => {
+  it('should login pw input change properly', async () => {
     const mockedEvent = {
       preventDefault() {},
       target: { value: 'iluvswpp' },
@@ -96,7 +96,7 @@ describe('Login', () => {
     input.simulate('change', mockedEvent);
   });
 
-  it('should submit button work put user info', () => {
+  it('should submit button work put user info', async () => {
     spyUseSelector.mockReturnValue(stubUsers);
     const spyAlert = jest.spyOn(window, 'alert').mockImplementation(() => {});
     const component = mount(login);
@@ -105,7 +105,7 @@ describe('Login', () => {
     expect(spyAlert).toHaveBeenCalledTimes(1);
   });
 
-  it('should handleSubmit alert error massage when wrong input submitted', () => {
+  it('should handleSubmit alert error massage when wrong input submitted', async () => {
     spyUseSelector.mockReturnValue(stubUsers);
     const spyDispatch = jest
       .spyOn(redux, 'useDispatch')

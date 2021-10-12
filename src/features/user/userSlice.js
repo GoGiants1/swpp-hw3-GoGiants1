@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     thisUser: defaultThisUser,
-    users: [],
+    users: null,
     tmpUser: null,
   },
   reducers: {
@@ -32,14 +32,10 @@ export const userSlice = createSlice({
     getUser_: (state, action) => {
       state.tmpUser = action.payload;
     },
-    putUser_: (state, action) => {
-      state.thisUser.logged_in = action.payload;
-    },
   },
 });
 
-export const { login, logout_, getUsers_, getUser_, putUser_ } =
-  userSlice.actions;
+export const { login, logout_, getUsers_, getUser_ } = userSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -90,5 +86,4 @@ export const putUser = (user) => async (dispatch) => {
 export const selectThisUser = (state) => state.user.thisUser;
 export const selectIsLoggedIn = (state) => state.user.thisUser.logged_in;
 export const selectUsers = (state) => state.user.users;
-export const selectTmpUser = (state) => state.user.tmpUser;
 export default userSlice.reducer;
