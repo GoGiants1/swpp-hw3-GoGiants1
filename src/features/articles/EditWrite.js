@@ -11,7 +11,7 @@ function EditWrite({
   handleClickBack,
 }) {
   return (
-    <div className="WriteTab">
+    <div className="EditWrite">
       <>
         <button id="write-tab-button" className="selected" type="button">
           write tab

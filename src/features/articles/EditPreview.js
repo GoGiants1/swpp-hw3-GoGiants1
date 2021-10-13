@@ -10,7 +10,7 @@ function EditPreview({
   authorName,
 }) {
   return (
-    <div className="PreviewTab">
+    <div className="EditPreview">
       <>
         <button
           id="write-tab-button"
