@@ -4,11 +4,11 @@ import { mount } from 'enzyme';
 import * as redux from 'react-redux';
 // import { ConnectedRouter } from 'connected-react-router';
 // import { Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 import getMockStore, {
   stubInitialState,
   stubAfterLoggedInState,
 } from '../test-utils/mocks';
-// import axios from 'axios';
 import configureAppStore, { history } from '../app/store';
 import App from '../App';
 
@@ -16,6 +16,9 @@ jest.mock('../features/articles/Articles', () => () => (
   <div className="Articles">Articles</div>
 ));
 
+jest.mock('axios');
+
+const stubUsers = stubAfterLoggedInState.user.users;
 const mockStore = getMockStore(stubInitialState);
 const store = configureAppStore(stubAfterLoggedInState);
 describe('Auth', () => {
@@ -26,6 +29,8 @@ describe('Auth', () => {
         <App history={history} />
       </redux.Provider>
     );
+
+    axios.get.mockReturnValue(stubUsers);
   });
   afterEach(() => {
     jest.clearAllMocks();

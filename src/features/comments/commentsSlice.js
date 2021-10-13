@@ -14,12 +14,12 @@ const commentsSlice = createSlice({
     postComments_: (state, action) => {
       state.comments.push(action.payload);
     },
-    getComment_: (state, action) => {
-      state.comments = state.comments.map((comment) => {
-        if (comment.id === action.payload.id) return action.payload;
-        return comment;
-      });
-    },
+    // getComment_: (state, action) => {
+    //   state.comments = state.comments.map((comment) => {
+    //     if (comment.id === action.payload.id) return action.payload;
+    //     return comment;
+    //   });
+    // },
     putComment_: (state, action) => {
       state.comments = state.comments.map((comment) => {
         if (comment.id === action.payload.id) return action.payload;
@@ -42,7 +42,7 @@ const commentsSlice = createSlice({
 export const {
   getComments_,
   postComments_,
-  getComment_,
+  // getComment_,
   putComment_,
   deleteComment_,
   getCommentsByArticle,
@@ -62,6 +62,7 @@ export const postComments = (comment) => async (dispatch) => {
   try {
     const res = await axios.post('/api/comments', comment);
     // comments에 새로운 comment 추가하기
+    // id 때문에 res.data 사용
     dispatch(postComments_(res.data));
     // commentsInArticle 최신화
     dispatch(getCommentsByArticle(comment.article_id));
@@ -70,14 +71,14 @@ export const postComments = (comment) => async (dispatch) => {
   }
 };
 
-export const getComment = (id) => async (dispatch) => {
-  try {
-    const res = await axios.get(`/api/comments${id}`);
-    dispatch(getComment_(res.data));
-  } catch (error) {
-    console.error(error);
-  }
-};
+// export const getComment = (id) => async (dispatch) => {
+//   try {
+//     const res = await axios.get(`/api/comments${id}`);
+//     dispatch(getComment_(res.data));
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 export const putComment = (comment) => async (dispatch) => {
   try {
@@ -100,8 +101,6 @@ export const deleteComment = (id, articleID) => async (dispatch) => {
 };
 
 export const selectComments = (state) => state.comments.comments;
-export const selectComment = (state, id) =>
-  state.comments.comments.filter((c) => c.id === id);
 export const selectCommentsInArticle = (state) =>
   state.comments.commentsInArticle;
 export default commentsSlice.reducer;

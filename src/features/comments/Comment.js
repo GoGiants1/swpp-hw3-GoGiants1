@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { putComment, deleteComment } from './commentsSlice';
@@ -11,7 +12,6 @@ function Comment({
   thisArticleID,
 }) {
   const dispatch = useDispatch();
-  const isAuthor = commentAuthorID === thisUserID;
   const [commentContent, setCommentContent] = useState(content);
   const handleEdit = () => {
     const result = window.prompt('Edit Comment', commentContent);
@@ -39,7 +39,7 @@ function Comment({
         <p>{commentContent}</p>
       </div>
       <div className="CommentButtons">
-        {isAuthor ? (
+        {commentAuthorID === thisUserID ? (
           <>
             <button
               id="edit-comment-button"

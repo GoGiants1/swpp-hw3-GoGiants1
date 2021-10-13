@@ -7,6 +7,7 @@ import App from './App';
 import getMockStore, { stubInitialState } from './test-utils/mocks';
 import { history } from './app/store';
 
+jest.mock('axios');
 jest.mock('./features/user/Login', () => () => <div>Login</div>);
 jest.mock('./features/articles/Articles', () => () => <div>Articles</div>);
 const mockStore = getMockStore(stubInitialState);
@@ -44,16 +45,7 @@ describe('<App />', () => {
         <App history={history} />
       </redux.Provider>
     );
-    axios.get = jest.fn(
-      (url) =>
-        new Promise((resolve, reject) => {
-          const result = {
-            status: 200,
-            data: stubUsers,
-          };
-          resolve(result);
-        }),
-    );
+    axios.get.mockReturnValue(stubUsers);
     console.err = jest.fn();
   });
   afterEach(() => {

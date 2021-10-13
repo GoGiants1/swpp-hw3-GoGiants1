@@ -11,9 +11,11 @@ function Comments({ findUserNameByID, thisArticleID, thisUserID }) {
   const dispatch = useDispatch();
   const [newContent, setNewContent] = useState('');
   const comments = useSelector(selectCommentsInArticle);
+
   useEffect(() => {
     dispatch(getComments(thisArticleID));
   }, []);
+
   const handlePostComment = () => {
     if (newContent) {
       const newComment = {
@@ -25,8 +27,6 @@ function Comments({ findUserNameByID, thisArticleID, thisUserID }) {
       setNewContent('');
     }
   };
-  // const handleDeleteComment = (id) => {};
-  // const handleEditComment = (id) => {};
 
   return (
     <>

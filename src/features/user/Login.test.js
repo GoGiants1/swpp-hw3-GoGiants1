@@ -3,10 +3,8 @@ import React from 'react';
 import * as redux from 'react-redux';
 import { mount } from 'enzyme';
 import axios from 'axios';
-import { Switch, Route } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import Login from './Login';
-import Auth from '../../hoc/Auth';
 import getMockStore, { stubInitialState } from '../../test-utils/mocks';
 import { history } from '../../app/store';
 

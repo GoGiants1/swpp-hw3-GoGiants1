@@ -115,6 +115,40 @@ export const stubAfterLoggedInState = {
   comments: { comments: null, commentsInArticle: null },
 };
 
+export const stubArticleDetailState = {
+  ...stubAfterLoggedInState,
+  comments: {
+    comments: [
+      {
+        id: 1,
+        article_id: 1,
+        author_id: 1,
+        content: 'What do you mean wow?',
+      },
+      {
+        id: 2,
+        article_id: 1,
+        author_id: 3,
+        content: 'I was surprised',
+      },
+    ],
+    commentsInArticle: [
+      {
+        id: 1,
+        article_id: 1,
+        author_id: 1,
+        content: 'What do you mean wow?',
+      },
+      {
+        id: 2,
+        article_id: 1,
+        author_id: 3,
+        content: 'I was surprised',
+      },
+    ],
+  },
+};
+
 export const getMockReducer = jest.fn(
   (initialState) =>
     (state = initialState, action) => {
