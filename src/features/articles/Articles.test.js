@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import * as redux from 'react-redux';
 import { mount } from 'enzyme';
 import { ConnectedRouter } from 'connected-react-router';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Articles from './Articles';
-import * as articlesSlice from './articlesSlice';
 import * as userSlice from '../user/userSlice';
 import getMockStore, { stubArticleDetailState } from '../../test-utils/mocks';
 import { history } from '../../app/store';
@@ -34,6 +32,7 @@ describe('<Articles/>', () => {
     );
     spyPutUser = jest
       .spyOn(userSlice, 'putUser')
+      // eslint-disable-next-line no-unused-vars
       .mockImplementation(() => (dispatch) => {});
     history.push = jest.fn();
   });

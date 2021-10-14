@@ -5,10 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUsers, selectThisUser, putUser } from '../user/userSlice';
 import Comments from '../comments/Comments';
 import { deleteArticle, getArticle } from './articlesSlice';
-// comment 리덕스
-// 버튼 6개
-// 댓글 컨펌, 댓글 수정, 댓글 삭제
-// 글 수정, 글 삭제, 뒤로가기 버튼
 
 function ArticleDetail({ history, match }) {
   const dispatch = useDispatch();
@@ -20,12 +16,12 @@ function ArticleDetail({ history, match }) {
   const [authorName, setAuthorName] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-
+  // eslint-disable-next-line consistent-return
   const findUserNameByID = (id) => {
     for (let i = 0; i < users.length; i += 1) {
       if (users[i].id === id) return users[i].name;
     }
-    return null;
+    // return null;
   };
 
   useEffect(() => {
