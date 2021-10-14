@@ -3,21 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import Article from './Article';
 import { getArticles, selectArticles } from './articlesSlice';
 import { selectThisUser, selectUsers, putUser } from '../user/userSlice';
-// 아티클 객체:
+
 function Articles({ history }) {
   const dispatch = useDispatch();
   const thisUser = useSelector(selectThisUser);
   const articles = useSelector(selectArticles);
   const users = useSelector(selectUsers);
   useEffect(() => {
-    if (thisUser) dispatch(getArticles());
+    dispatch(getArticles());
   }, []);
 
+  // eslint-disable-next-line consistent-return
   const findUserNameByID = (id) => {
     for (let i = 0; i < users.length; i += 1) {
       if (users[i].id === id) return users[i].name;
     }
-    return null;
+    // return null
   };
 
   const handleCreate = () => {

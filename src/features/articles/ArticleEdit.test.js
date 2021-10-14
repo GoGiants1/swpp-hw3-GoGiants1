@@ -9,7 +9,7 @@ import getMockStore, { stubArticleDetailState } from '../../test-utils/mocks';
 import * as articlesSlice from './articlesSlice';
 import * as userSlice from '../user/userSlice';
 import ArticleEdit from './ArticleEdit';
-import store, { history } from '../../app/store';
+import { history } from '../../app/store';
 
 const stubInitialState = {
   ...stubArticleDetailState,
@@ -19,105 +19,11 @@ const stubInitialState = {
   },
 };
 const mockStore = getMockStore(stubInitialState);
-// const s = store(stubInitialState);
-jest.mock(
-  './EditPreview',
-  () =>
-    ({ setIsPreview, handleClickBack, handleEdit }) =>
-      (
-        <div className="PreviewTab">
-          preview!
-          <button
-            id="write-tab-button"
-            type="button"
-            onClick={() => setIsPreview(false)}
-          >
-            write tab
-          </button>
-          <button
-            id="back-edit-article-button"
-            type="button"
-            onClick={() => handleClickBack()}
-          >
-            back
-          </button>
-          <button
-            id="confirm-edit-article-button"
-            type="button"
-            onClick={() => handleEdit()}
-          >
-            confirm
-          </button>
-        </div>
-      ),
-);
-jest.mock(
-  './EditWrite',
-  () =>
-    ({
-      setIsPreview,
-      handleClickBack,
-      handleEdit,
-      setTitle,
-      setContent,
-      title,
-      content,
-    }) =>
-      (
-        <div className="WriteTab">
-          write!
-          <button
-            id="preview-tab-button"
-            type="button"
-            onClick={() => setIsPreview(true)}
-          >
-            preview tab
-          </button>
-          <>
-            <textarea
-              id="article-title-input"
-              name="title"
-              placeholder="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <textarea
-              id="article-content-input"
-              name="content"
-              placeholder="Content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-          </>
-          <button
-            id="back-edit-article-button"
-            type="button"
-            onClick={() => handleClickBack()}
-          >
-            back
-          </button>
-          <button
-            id="confirm-edit-article-button"
-            type="button"
-            onClick={() => handleEdit()}
-          >
-            confirm
-          </button>
-        </div>
-      ),
-);
 
-// jest.mock('react', () => ({
-//   ...jest.requireActual('react'),
-//   useState: jest.fn(),
-// }));
 describe('<ArticleEdit>', () => {
   let articleEdit;
   let spyPutArticle;
   let spyPutUser;
-  // let spySelectThisUser;
-  // let spySelectSelectedArticle;
-  // const setState = jest.fn();
 
   beforeEach(() => {
     articleEdit = (
