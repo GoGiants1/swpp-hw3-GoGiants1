@@ -19,7 +19,7 @@ export const articlesSlice = createSlice({
       state.articles.push(action.payload);
     },
     putArticle_: (state, action) => {
-      state.articles.map((article) => {
+      state.articles = state.articles.map((article) => {
         if (article.id === action.payload.id) {
           return action.payload;
         }
@@ -46,19 +46,20 @@ export const {
 } = articlesSlice.actions;
 
 // thunk logics
-export const getArticle = (id, authorName) => async (dispatch) => {
-  try {
-    const res = await axios.get(`/api/articles/${id}`);
-    dispatch(getArticle_({ ...res.data, authorName }));
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 export const getArticles = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/articles');
     dispatch(getArticles_(res.data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getArticle = (id, authorName) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/articles/${id}`);
+    dispatch(getArticle_({ ...res.data, authorName }));
   } catch (err) {
     console.error(err);
   }
